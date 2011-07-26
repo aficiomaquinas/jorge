@@ -1,0 +1,200 @@
+//////////////////////////////////////////////
+// DECLARE PAGE WIDTH
+//////////////////////////////////////////////
+
+@full_width: 700px;
+@min_width: (11 * @full_width) / 9;
+
+//////////////////////////////////////////////
+// PROPORTION TABLES
+//////////////////////////////////////////////
+
+// http://lamb.cc/typograph/
+
+@traditional_1:     6;
+@traditional_2:     7;
+@traditional_3:     8;
+@traditional_4:     9;
+@traditional_5:    10;
+@traditional_6:    11;
+@traditional_7:    12;
+@traditional_8:    13;
+@traditional_9:    14;
+@traditional_10:   16;
+@traditional_11:   18;
+@traditional_12:   21;
+@traditional_13:   24;
+@traditional_14:   36;
+@traditional_15:   48;
+@traditional_16:   60;
+@traditional_17:   72;
+
+@fibonacci35_1:     3;
+@fibonacci35_2:     5;
+@fibonacci35_3:     8;
+@fibonacci35_4:    13;
+@fibonacci35_5:    21;
+@fibonacci35_6:    34;
+@fibonacci35_7:    55;
+@fibonacci35_8:    89;
+
+@fibonacci35d_1:     6;
+@fibonacci35d_2:    10;
+@fibonacci35d_3:    26;
+@fibonacci35d_4:    48;
+@fibonacci35d_5:    68;
+@fibonacci35d_6:   110;
+
+@standed35_1:     6;
+@standed35_2:     8;
+@standed35_3:    10;
+@standed35_4:    13;
+@standed35_5:    16;
+@standed35_6:    21;
+@standed35_7:    26;
+@standed35_8:    34;
+@standed35_9:    42;
+@standed35_10:   55;
+@standed35_11:   68;
+
+@fibonacci47_1:     4;
+@fibonacci47_2:     7;
+@fibonacci47_3:    11;
+@fibonacci47_4:    18;
+@fibonacci47_5:    29;
+@fibonacci47_6:    47;
+@fibonacci47_7:    76;
+
+@corbusier_1:     4;
+@corbusier_2:     5;
+@corbusier_3:   6.5;
+@corbusier_4:     8;
+@corbusier_5:  10.5;
+@corbusier_6:    13;
+@corbusier_7:    17;
+@corbusier_8:    21;
+@corbusier_9:  27.5;
+@corbusier_10:   34;
+@corbusier_11: 44.5;
+@corbusier_12:   55;
+@corbusier_13:   72;
+@corbusier_14:   89;
+@corbusier_base: 13;
+
+//////////////////////////////////////////////
+// GOLDEN RATIO AND REUSABLE PAGE WIDTHS
+//////////////////////////////////////////////
+
+@grb: 1.618; // Golden ratio bigger
+@grs: 0.618; // Goldon ratio smaller
+
+@width1:  @full_width * @grs;
+@width2:  @width1     * @grs;
+@width3:  @width2     * @grs;
+@width4:  @width3     * @grs;
+@width5:  @width4     * @grs;
+@width6:  @width5     * @grs;
+@width7:  @width6     * @grs;
+@width8:  @width7     * @grs;
+@width9:  @width8     * @grs;
+@width10: @width9     * @grs;
+@width11: @width10    * @grs;
+@width12: @width11    * @grs;
+@width13: @width12    * @grs;
+@width14: @width13    * @grs;
+@width15: @width14    * @grs;
+
+//////////////////////////////////////////////
+// DECLARE FONT PROPORTIONS
+//////////////////////////////////////////////
+
+@line_heigth: 1.25;
+@line_padding: .85;
+@base: @standed35_7;
+
+@font_size: 87.5; // (16px x 87.5) / 100 = 14px
+@px_per_em: (16 * @font_size) / 100;
+
+@h1_size: ( @standed35_11 / @base ) * 1em;
+@h2_size: ( @standed35_10 / @base ) * 1em;
+@h3_size: ( @standed35_9 / @base ) * 1em;
+@h4_size: ( @standed35_8 / @base ) * 1em;
+@h5_size: ( @standed35_7 / @base ) * 1em;
+@h6_size: ( @standed35_6 / @base ) * 1em;
+
+@h1_padding: @h1_size * @line_padding;
+@h2_padding: @h2_size * @line_padding;
+@h3_padding: @h3_size * @line_padding;
+@h4_padding: @h4_size * @line_padding;
+@h5_padding: @h5_size * @line_padding;
+@h6_padding: @h6_size * @line_padding;
+
+@h1_padding_t: (@h1_padding / 2) * @grs;
+@h2_padding_t: (@h2_padding / 2) * @grb;
+@h3_padding_t: (@h3_padding / 2) * @grb;
+@h4_padding_t: (@h4_padding / 2) * @grb;
+@h5_padding_t: (@h5_padding / 2) * @grb;
+@h6_padding_t: (@h6_padding / 2) * @grb;
+
+@h1_padding_b: (@h1_padding / 2) * @grs;
+@h2_padding_b: (@h2_padding / 4) * @grs;
+@h3_padding_b: (@h3_padding / 2) * @grs;
+@h4_padding_b: (@h4_padding / 2) * @grs;
+@h5_padding_b: (@h5_padding / 2) * @grs;
+@h6_padding_b: (@h6_padding / 2) * @grs;
+
+
+//////////////////////////////////////////////
+// PRINT PROPORTIONS
+//////////////////////////////////////////////
+
+body {
+	font-size: @font_size * 1%;
+	line-height: @line_heigth;}
+
+h1 {
+	font-size: @h1_size;}
+
+
+h2 { // .entry-title
+	font-size: @h2_size;
+	padding-top: 0;
+	padding-bottom: 0;}
+
+h3 {
+	font-size: @h3_size;
+	padding-top: @h3_padding_t;
+	padding-bottom: @h3_padding_b;}
+
+h4 {
+	font-size: @h4_size;
+	padding-top: @h4_padding_t;
+	padding-bottom: @h4_padding_b;}
+
+h5 {
+	font-size: @h5_size;
+	padding-top: @h5_padding_t;
+	padding-bottom: @h5_padding_b;}
+
+p {
+	font-size: @h5_size;
+	line-height: 1.5;
+	overflow: visible;}
+
+p + p {
+	text-indent: @width8;
+	margin-top: @h5_padding*@grb;}
+
+h6 {
+	font-size: @h6_size;
+	padding-top: @h6_padding_t;
+	padding-bottom: @h6_padding_b;}
+strong, b {
+	font-weight: 600;}
+
+em, i {
+	font-style: italic;}
+
+strong em, strong i, em strong, i strong, b em, b i, em b, i b {
+	font-style: italic;
+	font-weight: 600;}
