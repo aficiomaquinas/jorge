@@ -280,13 +280,25 @@ function obra_loop() { ?>
 				$dimesions = get_the_terms($post->ID, 'dimension');
 				
 				if ( !is_wp_error($mediums)) :
-					$output_mediums = implode( ' ,', $mediums );
-					echo '<span class="medium">' . $output_mediums . '</span>';
+					$medium_names = array();
+					
+					foreach ($mediums as $medium) {
+						$medium_names[] = $medium->name;
+					}
+					
+					$output_mediums = join( ' ,', $medium_names );
+				?><span class="medium"><?php echo $output_mediums; ?></span><?php
 				endif;
 				
-				if ( !is_wp_error($dimensions)) :			
-					$output_dimensions = implode( ' &#215; ', $dimensions );
-					echo '<span class="dimension">' . $output_dimensions . 'cm</span>';
+				if ( !is_wp_error($dimensions)) :
+					$dimension_names = array();
+					
+					foreach ($dimensions as $dimension) {
+						$dimension_names[] = $dimension->name;
+					}
+					
+					$output_dimensions = join( ' &#215; ', $dimension_names );
+				?><span class="dimension"><?php echo $output_dimensions; ?> cm</span><?php
 				endif; ?>
 				
 			</div><!-- .obra-ficha -->
