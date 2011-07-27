@@ -25,7 +25,7 @@ function register_cpt_obra() {
         'labels' => $labels,
         'hierarchical' => false,
         'description' => 'Todo tipo de obra desde pintura hasta instalación.',
-        'supports' => array( 'title', 'custom-fields' ),
+        'supports' => array( 'title', 'thumbnail' ),
         'taxonomies' => array( 'medium', 'dimension' ),
         'public' => true,
         'show_ui' => true,
@@ -85,7 +85,7 @@ function register_taxonomy_medium() {
 function register_taxonomy_dimension() {
 
     $labels = array( 
-        'name' => _x( 'Dimensiones', 'dimensión' ),
+        'name' => _x( 'Dimensiones (width, heigth, depth) en cent&iacute;metros', 'dimensión' ),
         'singular_name' => _x( 'Dimensión', 'dimensión' ),
         'search_items' => _x( 'Buscar Dimensiones', 'dimensión' ),
         'popular_items' => _x( 'Dimensiones Populares', 'dimensión' ),
@@ -252,7 +252,9 @@ function navigation($query) {
 }
 
 
-function post_loop() { ?>
+function post_loop() { 
+global $post;
+?>
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<header class="entry-header">
 			<time class="updated" datetime="<?php the_time('c'); ?>" pubdate><?php the_time( __('M/d/y', 'roots')) ?></time>
@@ -266,40 +268,45 @@ function post_loop() { ?>
 <?php }
 
 
-function obra_loop() { ?>
-	<article id="post-<?php the_ID(); ?>" <?php post_class('obra'); ?>>
+function obra_loop() { 
+global $post;
+?>
+	<article itemscope itemtype="http://schema.org/CreativeWork" id="post-<?php the_ID(); ?>" <?php post_class('obra'); ?>>
+		<?php // IMAGE
+		$image_attr = wp_get_attachment_image_src(get_post_thumbnail_id ($post->ID), large);?>
 		<div class="obra-picture">
-			<a href="<?php the_permalink(); ?>" title="<?php echo get_the_title($post->ID); ?>" rel="bookmark"><img src="" alt="<?php echo get_the_title($post->ID); ?>"</a>
+			<a itemprop="url" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><img itemprop="image" src="<?php echo $image_attr[0]; ?>" width="<?php echo $image_attr[1]; ?>" height="<?php echo $image_attr[2]; ?>" alt="<?php the_title(); ?>"/></a>
 		</div>
 		<div class="ficha-container">
-			<time class="finished" datetime="<?php the_time('c'); ?>"><?php the_time( __('M/d/y', 'roots')) ?></time><!-- .finished -->
+			<?php // TIME ?>
+			<time class="finished" itemprop="datePublished" datetime="<?php the_time('c'); ?>"><?php the_time( __('M/d/y', 'roots')) ?></time><!-- .finished -->
 			<div class="obra-ficha">
-				<cite><?php echo get_the_title($post->ID); ?></cite>
-				<?php
-				$mediums = get_the_terms($post->ID, 'medium');
-				$dimesions = get_the_terms($post->ID, 'dimension');
+				<?php // TITLE  ?>
+				<cite class="title" itemprop="name"><a itemprop="url" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php the_title(); ?></a></cite>
 				
+				<?php // MEDIUM
+				$mediums = get_the_terms($post->ID, 'medium');
 				if ( !is_wp_error($mediums)) :
 					$medium_names = array();
-					
 					foreach ($mediums as $medium) {
 						$medium_names[] = $medium->name;
 					}
-					
 					$output_mediums = join( ' ,', $medium_names );
-				?><span class="medium"><?php echo $output_mediums; ?></span><?php
-				endif;
+				?><span class="medium displayMaterialsTech"><?php echo $output_mediums; ?></span>
+				<?php endif; ?>
 				
+				<?php // DIMENSIONS
+				$dimensions = get_the_terms($post->ID, 'dimension');
 				if ( !is_wp_error($dimensions)) :
 					$dimension_names = array();
-					
 					foreach ($dimensions as $dimension) {
 						$dimension_names[] = $dimension->name;
 					}
-					
-					$output_dimensions = join( ' &#215; ', $dimension_names );
-				?><span class="dimension"><?php echo $output_dimensions; ?> cm</span><?php
+				?><span class="format dimensions displayMeasurements"><span class="width"><?php echo $dimension_names[0]; ?></span> &#215; <span class="heigth"><?php echo $dimension_names[1]; ?></span> &#215; <span class="depth"><?php echo $dimension_names[2]; ?></span> &#215; <abbr class="unit" title="cm">cm</abbr></span><?php
 				endif; ?>
+				
+				<?php // AUTHOR  ?>
+				<p itemprop="author" itemscope itemtype="http://schema.org/Person" class="byline author vcard displayCreator"><span itemprop="name"><a class="fn" rel="author" itemprop="url" href="<?php the_author_meta('user_url'); ?>"><?php the_author_meta('user_nicename'); ?></a></span></p>
 				
 			</div><!-- .obra-ficha -->
 		</div><!-- .ficha-container -->
