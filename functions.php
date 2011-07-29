@@ -277,7 +277,7 @@ global $post;
 		<?php // IMAGE ?>
 		
 		<div class="obra-picture">
-			<a itemprop="url" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php image_echo('large',$post->ID); ?></a>
+			<a itemprop="url" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php image_echo('mobile',$post->ID); ?></a>
 		</div>
 		
 		<div class="ficha-container">
@@ -370,7 +370,7 @@ if ( function_exists( 'add_image_size' ) ) {
 function image_echo($size, $i_ID) {
 	$image_attr = wp_get_attachment_image_src(get_post_thumbnail_id ($i_ID), $size);
 
-	?><img itemprop="image" id="image-atta-<?php echo get_post_thumbnail_id ($i_ID) ?>" class="ajax-resize" attachment-id="<?php echo get_post_thumbnail_id ($i_ID) ?>" src="<?php echo $image_attr[0]; ?>" width="<?php echo $image_attr[1]; ?>" height="<?php echo $image_attr[2]; ?>" alt="<?php echo get_the_title($i_ID); ?>"/><?php
+	?><img itemprop="image" id="image-atta-<?php echo get_post_thumbnail_id ($i_ID) ?>" class="ajax-resize" attachment-id="<?php echo get_post_thumbnail_id ($i_ID) ?>" src="<?php echo $image_attr[0]; ?>" width="<?php echo $image_attr[1]; ?>" height="<?php echo $image_attr[2]; ?>" alt="<?php echo get_the_title($i_ID); ?>" /><?php
 }
 
 function resize_ajax_image() {

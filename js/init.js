@@ -5,6 +5,7 @@ $(document).ready(function() {
 		
 		$('img.ajax-resize').each(function(){
 			var attachmentID = $(this).attr('attachment-id');
+			$(this).hide();
 			
 			$.ajax(
 				theme_info.ajax,{
@@ -20,7 +21,7 @@ $(document).ready(function() {
 							src: image.url,
 							height: image.height,
 							width: image.width
-						});
+						}).fadeIn(500);
 						
 					},
 					error: function(e){
