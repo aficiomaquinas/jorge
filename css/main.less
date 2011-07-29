@@ -120,7 +120,7 @@ button {  width: auto; overflow: visible; }
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 body, select, input, textarea {
-  color: #444;}
+	color: #444;}
 
 h1, h2, h3, h4, h5, h6 { font-weight: bold; }
 
@@ -131,18 +131,16 @@ a:hover { color: #036; }
 ::selection { background: #FF5E99; color: #fff; text-shadow: none; }
 
 #wrap {
-	min-width: @min_width;
-	width: @full_width;
-	margin: 1em auto 0;
-	padding: 0 1em;
+	margin: 0 auto;
+	padding: 0;
 	overflow: hidden;}
 
 .logo_wrapper {
 	width: 300px;
 	margin: 0 auto;}
 		
-#logo {
-	}
+#banner {
+	margin: 0 0 2em 0;}
 
 #nav-main {
 	ul {
@@ -155,6 +153,65 @@ a:hover { color: #036; }
 		display: block;
 		float: left;
 		right: 50%; }}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+/* Smaller than 1024, Mobile phone for sure */
+@media screen and (max-width: 800px) {
+	
+	// FLUID
+	#wrap {
+		margin: 0 auto;
+		padding: 0 1em;}
+	
+}
+
+/* 1024, Windows 96%, IE 50% */
+@media screen and (min-width: 801px) and (max-width: 1024px) {
+	
+	#wrap {
+		width: @960_full_width;
+		margin: 0 auto;}
+		
+}
+
+/* 1280, Safari 60%, IE 20% */
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+	
+	#wrap {
+		width: @1024_full_width;
+		margin: 0 auto;}
+	
+}
+
+/* 1440, Windows 70%, IE 40% */
+@media screen and (min-width: 1281px) and (max-width: 1440px) {
+	
+	#wrap {
+		width: @1280_full_width;
+		margin: 0 auto;}
+
+}
+
+/* 1680, Mac 70%, IE 8% */
+@media screen and (min-width: 1441px) and (max-width: 1680px) {
+	
+	#wrap {
+		width: @1440_full_width;
+		margin: 0 auto;}
+
+}
+
+/* 1920, Mac 90%, no IE */
+@media only screen and (min-width: 1681px) {	
+	
+	#wrap {
+		width: @1680_full_width;
+		margin: 0 auto;}
+
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -189,11 +246,6 @@ a:hover { color: #036; }
 /* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
 .clearfix { zoom: 1; }
 
-
-/* Smaller screens */
-@media only screen and (max-width: 1023px) {
-
-}
 
 @media all and (orientation:portrait) {
 

@@ -2,7 +2,10 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-define('HOME',get_stylesheet_directory_uri());
+define('HOME', get_stylesheet_directory_uri());
+include('../../../../../Documents/Desarrollo/chromephp/ChromePhp.php');
+
+// ChromePhp::log('hello world');
 
 function register_cpt_obra() {
 
@@ -274,9 +277,11 @@ global $post;
 	<article itemscope itemtype="http://schema.org/CreativeWork" id="post-<?php the_ID(); ?>" <?php post_class('obra'); ?>>
 		<?php // IMAGE
 		$image_attr = wp_get_attachment_image_src(get_post_thumbnail_id ($post->ID), large);?>
+		
 		<div class="obra-picture">
-			<a itemprop="url" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><img itemprop="image" src="<?php echo $image_attr[0]; ?>" width="<?php echo $image_attr[1]; ?>" height="<?php echo $image_attr[2]; ?>" alt="<?php the_title(); ?>"/></a>
+			<a itemprop="url" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><img itemprop="image" class="ajax-resize" attachment-id="<?php echo get_post_thumbnail_id ($post->ID) ?>" src="<?php echo $image_attr[0]; ?>" width="<?php echo $image_attr[1]; ?>" height="<?php echo $image_attr[2]; ?>" alt="<?php the_title(); ?>"/></a>
 		</div>
+		
 		<div class="ficha-container">
 			<?php // TIME ?>
 			<time class="finished" itemprop="datePublished" datetime="<?php the_time('c'); ?>"><?php the_time( __('M/d/y', 'roots')) ?></time><!-- .finished -->
@@ -353,6 +358,57 @@ function all_types_index_loop() {
 	}
 	//////////////   LOOP ENDS   ///////////////
 	wp_reset_query();
+}
+
+if ( function_exists( 'add_image_size' ) ) { 
+	add_image_size( 'mobile', 300, 485 );
+	add_image_size( 'small_960', 500, 800 );
+	add_image_size( 'medium_1024', 540, 870 );
+	add_image_size( 'medium_1280', 670, 1100 );
+	add_image_size( 'large_1440', 760, 1230 );
+	add_image_size( 'large_1680', 880, 1420 );
+}
+
+function image_echo($size, $i_ID) {
+	$image_attr = wp_get_attachment_image_src(get_post_thumbnail_id ($i_ID), $size);
+	
+	?><img itemprop="image" class="ajax-resize" attachment-id="<?php echo get_post_thumbnail_id ($i_ID) ?>" src="<?php echo $image_attr[0]; ?>" width="<?php echo $image_attr[1]; ?>" height="<?php echo $image_attr[2]; ?>" alt="<?php echo get_the_title($i_ID); ?>"/><?php
+}
+
+function resize_ajax_image() {
+	if(isset($_POST['image_size'])) {
+		$image_size = $_POST['image_size'];
+	}
+	
+	if(isset($_POST['attachment_id'])) {
+		$attachment_id = $_POST['attachment_id'];
+	}
+	
+	image_echo($image_size, $attachment_id);
+	die();
+	
+} add_action( 'wp_ajax_nopriv_resize_ajax_image', 'resize_ajax_image' );
+add_action( 'wp_ajax_resize_ajax_image', 'resize_ajax_image' );
+
+
+function gr_widths($num) {
+	$out  = '@full_width: '.$num.'px\r';
+	$out .= '@width1:  @full_width * @grs; // ' .strval(round($num * (pow(0.618,1)), 2)) .' @ '.$num."px\r";
+	$out .= '@width2:  @width1     * @grs; // ' .strval(round($num * (pow(0.618,2)), 2)) .' @ '.$num."px\r";
+	$out .= '@width3:  @width2     * @grs; // ' .strval(round($num * (pow(0.618,3)), 2)) .' @ '.$num."px\r";
+	$out .= '@width4:  @width3     * @grs; // ' .strval(round($num * (pow(0.618,4)), 2)) .' @ '.$num."px\r";
+	$out .= '@width5:  @width4     * @grs; // ' .strval(round($num * (pow(0.618,5)), 2)) .' @ '.$num."px\r";
+	$out .= '@width6:  @width5     * @grs; // ' .strval(round($num * (pow(0.618,6)), 2)) .' @ '.$num."px\r";
+	$out .= '@width7:  @width6     * @grs; // ' .strval(round($num * (pow(0.618,7)), 2)) .' @ '.$num."px\r";
+	$out .= '@width8:  @width7     * @grs; // ' .strval(round($num * (pow(0.618,8)), 2)) .' @ '.$num."px\r";
+	$out .= '@width9:  @width8     * @grs; // ' .strval(round($num * (pow(0.618,9)), 2)) .' @ '.$num."px\r";
+	$out .= '@width10: @width9     * @grs; // ' .strval(round($num * (pow(0.618,10)), 2)).' @ '.$num."px\r";
+	$out .= '@width11: @width10    * @grs; // ' .strval(round($num * (pow(0.618,11)), 2)).' @ '.$num."px\r";
+	$out .= '@width12: @width11    * @grs; // ' .strval(round($num * (pow(0.618,12)), 2)).' @ '.$num."px\r";
+	$out .= '@width13: @width12    * @grs; // ' .strval(round($num * (pow(0.618,13)), 2)).' @ '.$num."px\r";
+	$out .= '@width14: @width13    * @grs; // ' .strval(round($num * (pow(0.618,14)), 2)).' @ '.$num."px\r";
+	$out .= '@width15: @width14    * @grs; // ' .strval(round($num * (pow(0.618,15)), 2)).' @ '.$num."px\r";
+	echo $out;
 }
 
 

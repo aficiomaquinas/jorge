@@ -1,9 +1,91 @@
 //////////////////////////////////////////////
-// DECLARE PAGE WIDTH
+// RULER DIMENSIONS
 //////////////////////////////////////////////
 
-@full_width: 700px;
-@min_width: (11 * @full_width) / 9;
+@960_full_width: 960px;
+@960_width1:  @960_full_width * @grs; // 593.28 @ 960px
+@960_width2:  @960_width1     * @grs; // 366.64 @ 960px
+@960_width3:  @960_width2     * @grs; // 226.58 @ 960px
+@960_width4:  @960_width3     * @grs; // 140.03 @ 960px
+@960_width5:  @960_width4     * @grs; // 86.53 @ 960px
+@960_width6:  @960_width5     * @grs; // 53.48 @ 960px
+@960_width7:  @960_width6     * @grs; // 33.05 @ 960px
+@960_width8:  @960_width7     * @grs; // 20.42 @ 960px
+@960_width9:  @960_width8     * @grs; // 12.62 @ 960px
+@960_width10: @960_width9     * @grs; // 7.80 @ 960px
+@960_width11: @960_width10    * @grs; // 4.82 @ 960px
+@960_width12: @960_width11    * @grs; // 2.97 @ 960px
+@960_width13: @960_width12    * @grs; // 1.84 @ 960px
+@960_width14: @960_width13    * @grs; // 1.13 @ 960px
+@960_width15: @960_width14    * @grs; // 0.70 @ 960px
+
+@1024_full_width: 1024px;
+@1024_width1:  @1024_full_width * @grs; // 632.83 @ 1024px
+@1024_width2:  @1024_width1     * @grs; // 391.09 @ 1024px
+@1024_width3:  @1024_width2     * @grs; // 241.69 @ 1024px
+@1024_width4:  @1024_width3     * @grs; // 149.37 @ 1024px
+@1024_width5:  @1024_width4     * @grs; // 92.31 @ 1024px
+@1024_width6:  @1024_width5     * @grs; // 57.05 @ 1024px
+@1024_width7:  @1024_width6     * @grs; // 35.25 @ 1024px
+@1024_width8:  @1024_width7     * @grs; // 21.79 @ 1024px
+@1024_width9:  @1024_width8     * @grs; // 13.46 @ 1024px
+@1024_width10: @1024_width9     * @grs; // 8.32 @ 1024px
+@1024_width11: @1024_width10    * @grs; // 5.14 @ 1024px
+@1024_width12: @1024_width11    * @grs; // 3.18 @ 1024px
+@1024_width13: @1024_width12    * @grs; // 1.96 @ 1024px
+@1024_width14: @1024_width13    * @grs; // 1.21 @ 1024px
+@1024_width15: @1024_width14    * @grs; // 0.75 @ 1024px
+
+@1280_full_width: 1280px;
+@1280_width1:  @1280_full_width * @grs; // 791.04 @ 1280px
+@1280_width2:  @1280_width1     * @grs; // 488.86 @ 1280px
+@1280_width3:  @1280_width2     * @grs; // 302.12 @ 1280px
+@1280_width4:  @1280_width3     * @grs; // 186.71 @ 1280px
+@1280_width5:  @1280_width4     * @grs; // 115.39 @ 1280px
+@1280_width6:  @1280_width5     * @grs; // 71.31 @ 1280px
+@1280_width7:  @1280_width6     * @grs; // 44.07 @ 1280px
+@1280_width8:  @1280_width7     * @grs; // 27.23 @ 1280px
+@1280_width9:  @1280_width8     * @grs; // 16.83 @ 1280px
+@1280_width10: @1280_width9     * @grs; // 10.4 @ 1280px
+@1280_width11: @1280_width10    * @grs; // 6.43 @ 1280px
+@1280_width12: @1280_width11    * @grs; // 3.97 @ 1280px
+@1280_width13: @1280_width12    * @grs; // 2.46 @ 1280px
+@1280_width14: @1280_width13    * @grs; // 1.52 @ 1280px
+@1280_width15: @1280_width14    * @grs; // 0.94 @ 1280px
+
+@1440_full_width: 1440px;
+@1440_width1:  @1440_full_width * @grs; // 889.92 @ 1440px
+@1440_width2:  @1440_width1     * @grs; // 549.97 @ 1440px
+@1440_width3:  @1440_width2     * @grs; // 339.88 @ 1440px
+@1440_width4:  @1440_width3     * @grs; // 210.05 @ 1440px
+@1440_width5:  @1440_width4     * @grs; // 129.81 @ 1440px
+@1440_width6:  @1440_width5     * @grs; // 80.22 @ 1440px
+@1440_width7:  @1440_width6     * @grs; // 49.58 @ 1440px
+@1440_width8:  @1440_width7     * @grs; // 30.64 @ 1440px
+@1440_width9:  @1440_width8     * @grs; // 18.93 @ 1440px
+@1440_width10: @1440_width9     * @grs; // 11.7 @ 1440px
+@1440_width11: @1440_width10    * @grs; // 7.23 @ 1440px
+@1440_width12: @1440_width11    * @grs; // 4.47 @ 1440px
+@1440_width13: @1440_width12    * @grs; // 2.76 @ 1440px
+@1440_width14: @1440_width13    * @grs; // 1.71 @ 1440px
+@1440_width15: @1440_width14    * @grs; // 1.05 @ 1440px
+
+@1680_full_width: 1680px;
+@1680_width1:  @1680_full_width * @grs; // 1038.24 @ 1680px
+@1680_width2:  @1680_width1     * @grs; // 641.63 @ 1680px
+@1680_width3:  @1680_width2     * @grs; // 396.53 @ 1680px
+@1680_width4:  @1680_width3     * @grs; // 245.05 @ 1680px
+@1680_width5:  @1680_width4     * @grs; // 151.44 @ 1680px
+@1680_width6:  @1680_width5     * @grs; // 93.59 @ 1680px
+@1680_width7:  @1680_width6     * @grs; // 57.84 @ 1680px
+@1680_width8:  @1680_width7     * @grs; // 35.75 @ 1680px
+@1680_width9:  @1680_width8     * @grs; // 22.09 @ 1680px
+@1680_width10: @1680_width9     * @grs; // 13.65 @ 1680px
+@1680_width11: @1680_width10    * @grs; // 8.44 @ 1680px
+@1680_width12: @1680_width11    * @grs; // 5.21 @ 1680px
+@1680_width13: @1680_width12    * @grs; // 3.22 @ 1680px
+@1680_width14: @1680_width13    * @grs; // 1.99 @ 1680px
+@1680_width15: @1680_width14    * @grs; // 1.23 @ 1680px
 
 //////////////////////////////////////////////
 // PROPORTION TABLES
@@ -88,22 +170,6 @@
 @grb: 1.618; // Golden ratio bigger
 @grs: 0.618; // Goldon ratio smaller
 
-@width1:  @full_width * @grs;
-@width2:  @width1     * @grs;
-@width3:  @width2     * @grs;
-@width4:  @width3     * @grs;
-@width5:  @width4     * @grs;
-@width6:  @width5     * @grs;
-@width7:  @width6     * @grs;
-@width8:  @width7     * @grs;
-@width9:  @width8     * @grs;
-@width10: @width9     * @grs;
-@width11: @width10    * @grs;
-@width12: @width11    * @grs;
-@width13: @width12    * @grs;
-@width14: @width13    * @grs;
-@width15: @width14    * @grs;
-
 //////////////////////////////////////////////
 // DECLARE FONT PROPORTIONS
 //////////////////////////////////////////////
@@ -182,7 +248,6 @@ p {
 	overflow: visible;}
 
 p + p {
-	text-indent: @width8;
 	margin-top: @h5_padding*@grb;}
 
 h6 {

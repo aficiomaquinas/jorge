@@ -17,7 +17,17 @@
 
 	<?php wp_head(); ?>
 	<?php roots_head(); ?>
-
+	
+	<script>
+	/* <![CDATA[ */
+	theme_info = {
+		url: "<?php echo HOME; ?>",
+		ajax: "<?php echo admin_url( 'admin-ajax.php' ); ?>"
+	}
+	/* ]]> */
+	</script>
+	
+	<script src="<?php echo HOME; ?>/js/libs/modernizr-2.0.6.js"></script>
 	<script src="<?php echo HOME; ?>/js/scripts.js"></script>
 </head>
 
@@ -29,10 +39,12 @@
 		<header id="banner" class="<?php global $roots_options; echo $roots_options['container_class']; ?>" role="banner">
 			<?php roots_header_inside(); ?>
 			<div class="container">
-	
-				<a id="logo" href="<?php echo home_url(); ?>/">
-					<img src="<?php echo HOME; ?>/img/logo.png" width="300" height="75" alt="<?php bloginfo('name'); ?>">
-				</a>
+			
+				<div class="logo_wrapper">
+					<a id="logo" href="<?php echo home_url(); ?>/">
+						<img src="<?php echo HOME; ?>/img/logo.png" width="300" height="75" alt="<?php bloginfo('name'); ?>">
+					</a>
+				</div>
 				
 				<?php if ($roots_options['clean_menu']) { ?>
 					<nav id="nav-main" role="navigation">
