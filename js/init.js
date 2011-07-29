@@ -5,19 +5,23 @@ $(document).ready(function() {
 		
 		$('img.ajax-resize').each(function(){
 			var attachmentID = $(this).attr('attachment-id');
-
+			
 			$.ajax(
 				theme_info.ajax,{
 					type: 'POST',
 					cache: false,
-					processData: false,
 					data: {
 						action: 'resize_ajax_image',
 						image_size: imageSize,
 						attachment_id: attachmentID
 					},
-					success: function(resizeImage){
-						$(this).html(resizeImage);
+					success: function(image){
+						$('#' + 'image-atta-' + attachmentID).attr({
+							src: image.url,
+							height: image.height,
+							width: image.width
+						});
+						
 					},
 					error: function(e){
 						console.log(e);

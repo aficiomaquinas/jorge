@@ -3,7 +3,6 @@
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 define('HOME', get_stylesheet_directory_uri());
-include('../../../../../Documents/Desarrollo/chromephp/ChromePhp.php');
 
 // ChromePhp::log('hello world');
 
@@ -275,11 +274,10 @@ function obra_loop() {
 global $post;
 ?>
 	<article itemscope itemtype="http://schema.org/CreativeWork" id="post-<?php the_ID(); ?>" <?php post_class('obra'); ?>>
-		<?php // IMAGE
-		$image_attr = wp_get_attachment_image_src(get_post_thumbnail_id ($post->ID), large);?>
+		<?php // IMAGE ?>
 		
 		<div class="obra-picture">
-			<a itemprop="url" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><img itemprop="image" class="ajax-resize" attachment-id="<?php echo get_post_thumbnail_id ($post->ID) ?>" src="<?php echo $image_attr[0]; ?>" width="<?php echo $image_attr[1]; ?>" height="<?php echo $image_attr[2]; ?>" alt="<?php the_title(); ?>"/></a>
+			<a itemprop="url" href="<?php the_permalink(); ?>" title="<?php the_title(); ?>" rel="bookmark"><?php image_echo('large',$post->ID); ?></a>
 		</div>
 		
 		<div class="ficha-container">
@@ -371,21 +369,28 @@ if ( function_exists( 'add_image_size' ) ) {
 
 function image_echo($size, $i_ID) {
 	$image_attr = wp_get_attachment_image_src(get_post_thumbnail_id ($i_ID), $size);
-	
-	?><img itemprop="image" class="ajax-resize" attachment-id="<?php echo get_post_thumbnail_id ($i_ID) ?>" src="<?php echo $image_attr[0]; ?>" width="<?php echo $image_attr[1]; ?>" height="<?php echo $image_attr[2]; ?>" alt="<?php echo get_the_title($i_ID); ?>"/><?php
+
+	?><img itemprop="image" id="image-atta-<?php echo get_post_thumbnail_id ($i_ID) ?>" class="ajax-resize" attachment-id="<?php echo get_post_thumbnail_id ($i_ID) ?>" src="<?php echo $image_attr[0]; ?>" width="<?php echo $image_attr[1]; ?>" height="<?php echo $image_attr[2]; ?>" alt="<?php echo get_the_title($i_ID); ?>"/><?php
 }
 
 function resize_ajax_image() {
-	if(isset($_POST['image_size'])) {
+	
+	if(isset($_POST['image_size']) && isset($_POST['attachment_id'])) {
 		$image_size = $_POST['image_size'];
-	}
-	
-	if(isset($_POST['attachment_id'])) {
 		$attachment_id = $_POST['attachment_id'];
+				
+		$i_attr = wp_get_attachment_image_src($attachment_id, $image_size);
+		
+		$response = json_encode(array(
+			'url' => $i_attr[0],
+			'width' => $i_attr[1],
+			'height' => $i_attr[2],
+		));
+		header("Content-Type: application/json");
+		echo $response;
+		
+		exit;
 	}
-	
-	image_echo($image_size, $attachment_id);
-	die();
 	
 } add_action( 'wp_ajax_nopriv_resize_ajax_image', 'resize_ajax_image' );
 add_action( 'wp_ajax_resize_ajax_image', 'resize_ajax_image' );
