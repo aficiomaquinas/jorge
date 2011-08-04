@@ -1,10 +1,13 @@
 $(document).ready(function() {
 
-	function find_ajax_images(i) {
-		imageSize = i;
+	function resize_images(size) {
+		imageSize = size;
+		images = $('img.ajax-resize');
 		
-		$('img.ajax-resize').each(function(){
-			var attachmentID = $(this).attr('attachment-id');
+		images.each(function(){
+			var this_image = $(this);
+			var attachmentID = this_image.attr('attachment-id');
+			
 			$(this).hide();
 			
 			$.ajax(
@@ -17,7 +20,8 @@ $(document).ready(function() {
 						attachment_id: attachmentID
 					},
 					success: function(image){
-						$('#' + 'image-atta-' + attachmentID).attr({
+						//console.log(this);
+						this_image.attr({
 							src: image.url,
 							height: image.height,
 							width: image.width
@@ -30,15 +34,15 @@ $(document).ready(function() {
 				});
 		});
 	}
-	
+		
 	var last_image;
 	var last_size;
 		
 	function last_img_fn(keyword) {
 		if (last_image != keyword) {
 			last_image = keyword;
-			find_ajax_images(keyword);
-			console.log(keyword);
+			resize_images(keyword);
+			//console.log(keyword);
 		}
 	}
 	

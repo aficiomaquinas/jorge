@@ -7,7 +7,7 @@ Modernizr.load([
 		complete: function () {
 		
 			if ( !window.jQuery ) {
-				Modernizr.load(theme_info.url + '/js/libs/jquery-1.5.2.min.js');
+				Modernizr.load(theme_info.url + '/js/libs/jquery.min.js');
 			}
 			
 			Modernizr.load(theme_info.url + '/js/init.js');
