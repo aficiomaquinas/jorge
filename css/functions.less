@@ -2,7 +2,7 @@
 // REUSABLE TIME-SAVERS
 //////////////////////////////////////////////
 
-.links (@link_color: @light_gray, @link_decoration: none, @hover_color: @white, @hover_decoration: underline, @active_color: @white, @active_decoration: underline) {
+.links (@link_color, @link_decoration, @hover_color, @hover_decoration, @active_color, @active_decoration) {
 	a {
 		&:link {
 			color: @link_color;
@@ -121,6 +121,29 @@
 	transform: rotate(@deg);
 	filter: e(%("progid:DXImageTransform.Microsoft.Matrix(M11=%d, M12=-%d, M21=%d, M22=%d)", @M11, @M21, @M21, @M11));
 }
+
+.box (@orient, @pack, @align) {
+	display: -webkit-box;
+	-webkit-box-orient: @orient;
+	-webkit-box-pack: @pack;
+	-webkit-box-align: @align;
+
+	display: -moz-box;
+	-moz-box-orient: @orient;
+	-moz-box-pack: @pack;
+	-moz-box-align: @align;
+
+	display: box;
+	box-orient: @orient;
+	box-pack: @pack;
+	box-align: @align;
+}
+
+.box_flex (@flex) {
+	-webkit-box-flex: @flex;
+	-moz-box-flex: @flex;
+	box-flex: @flex;
+}
 	
 .letterpress_darken (@color) {
 	color: @color;
@@ -224,3 +247,7 @@
 		height: 10px;
 		z-index: 100;
 		.box_shadow_rgba(0px, 0px, 50px, 0,0,0,.3);}}
+		
+/* Nicholas Gallagher's Micro Clearfix */
+/* For modern browsers */
+.cf:before,.cf:after{content:"";display:table;}.cf:after{clear:both;}.cf{zoom:1;}

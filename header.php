@@ -1,16 +1,19 @@
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" <?php language_attributes(); ?>> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" <?php language_attributes(); ?>> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" <?php language_attributes(); ?>> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" <?php language_attributes(); ?>> <!--<![endif]-->
+<!DOCTYPE html>
+
+<html <?php language_attributes(); ?>>
 <head>
-	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> <meta charset="utf-8">
+	<!--[if lt IE 7]><html class="no-js ie6" <?php language_attributes(); ?>><![endif]-->
+	<!--[if IE 7]><html class="no-js ie7" <?php language_attributes(); ?>><![endif]-->
+	<!--[if IE 8]><html class="no-js ie8" <?php language_attributes(); ?>><![endif]-->
+	<!--[if gt IE 8]><!--><html class="no-js" <?php language_attributes(); ?>><!--<![endif]-->
+	
+	<!-- Nicholas Gallagher "bubble up" conditional comments method  -->
+	<!-- http://nicolasgallagher.com/better-conditional-classnames-for-hack-free-css/ -->
 
 	<title><?php wp_title('|', true, 'right'); bloginfo('name'); ?></title>
 	
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-	<?php // roots_stylesheets(); ?>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no" />
 	
 	<link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> Feed" href="<?php echo home_url(); ?>/feed/">
 	<link rel="stylesheet/less" type="text/css" href="<?php echo HOME; ?>/css/main.less">

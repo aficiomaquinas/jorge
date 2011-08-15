@@ -1,6 +1,12 @@
 Modernizr.load([
 	
-	{load: theme_info.url + '/js/libs/less-1.1.3.min.js'}
+	{
+		load: theme_info.url + '/js/libs/less-1.1.3.min.js',
+		complete: function() {
+			less.env = "development";
+			less.watch();
+		}
+	}
 	
 	,{
 		load: '//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js',
