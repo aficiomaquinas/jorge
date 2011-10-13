@@ -4,7 +4,7 @@
 		<?php roots_main_before(); ?>
 			<div id="main" class="<?php echo $roots_options['main_class']; ?>" role="main">
 				<div class="container">
-					<?php all_types_index_loop(); ?>
+					<?php get_template_part('loop', 'obra'); ?>
 				</div>
 			</div><!-- /#main -->
 		<?php roots_main_after(); ?>

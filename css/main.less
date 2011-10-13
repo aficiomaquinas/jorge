@@ -73,7 +73,7 @@ pre {
 
 textarea { overflow: auto; } /* www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/ */
 
-.ie6 legend, .ie7 legend { margin-left: -7px; } 
+.ie6 legend, .ie7 legend { margin-left: -7px; }
 
 /* Align checkboxes, radios, text inputs with their label by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css  */
 input[type="radio"] { vertical-align: text-bottom; }
@@ -111,25 +111,39 @@ button {  width: auto; overflow: visible; }
  *
  * Author: Victor Gonzalez
  */
- 
+
 @import 'functions';
 @import 'proportions';
- 
+
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
+
+html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; }
+
+.menu, footer, article { visibility: hidden; }
+.no-js {
+	.menu, footer, article { visibility: visible; }
+	.loading {display: none;}}
+
+.loading {
+	text-align: center;}
 
 body, select, input, textarea {
 	color: #444;
-	.transition(all,.2s);
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
-	word-wrap: break-word;}
-	
+	word-wrap: break-word;
+	font-family: ff-dagny-web-pro, "Helvetica Neue", Helvetica, Arial, sans-serif;}
+
 h1, h2, h3, h4, h5, h6 { font-weight: bold; }
 
-a, a:active, a:visited { color: #607890; }
-a:hover { color: #036; }
+@nt_link_color: #444;
+.links(
+	@nt_link_color, underline,
+	lighten(spin(@nt_link_color, -20), 20%), underline,
+	darken(spin(@nt_link_color, 150), 30%), none);
+a{.transition(color,.3s);}
 
 ::-moz-selection{ background: #FF5E99; color: #fff; text-shadow: none; }
 ::selection { background: #FF5E99; color: #fff; text-shadow: none; }
@@ -138,29 +152,32 @@ a:hover { color: #036; }
 	margin: 0 auto;
 	padding: 0;
 	overflow: hidden;}
-	
+
 .csstransitions #wrap {
-	.transition(width, 1s);
+	//.transition(width, 1s);
 }
 
 .logo_wrapper {
-	width: 300px;
-	margin: 0 auto;}
-		
+	margin: 0 auto 1em;
+	height: 286px;
+	width: 300px;}
+	
+.ipod, .iphone {
+	.logo_wrapper {
+		margin: 0 auto 1em;
+		height: 143px !important;
+		width: 150px !important;}}
+
 #banner {
-	margin: 0 0 2em 0;}
+	margin: 3em 0;}
 
 #nav-main {
-	ul {
-		overflow: hidden;
-		width: 16em;
-		margin: 0 auto;}
-	li {
-		width: 8em;
-		text-align: center;
-		display: block;
-		float: left;
-		right: 50%; }}
+	@nt_link_color: #bbb;
+	.links(
+		@nt_link_color, none,
+		darken(@nt_link_color, 50%), underline,
+		lighten(@nt_link_color, 20%), none);
+	margin-bottom: 1.5em;}
 
 .obra-picture {
 	img { display: block; }}
@@ -172,14 +189,13 @@ cite {
 	font-weight: bold;}
 
 time {
-	text-transform: uppercase;
-	color: #fff;}
+	text-transform: uppercase;}
 
 &.csstransitions time {
-	.transition(color, .3s);}	
+	.transition(color, .3s);}
 
 .obra-ficha {
-	border: @ficha_border solid #eee;
+	border: (@ficha_border * 1px) solid #eee;
 	color: @ficha_text;
 	p {
 		margin: 0 1.5em;
@@ -192,7 +208,7 @@ time {
 			margin: 1.5em 0;}}
 	p + p {
 		margin-top: .5em;}}
-		
+
 &.no-touch .obra-ficha {
 	a {
 		&:link {
@@ -215,7 +231,7 @@ time {
 				left: 1px;}}
 		border: 1px solid #ddd;
 		color: @ficha_text_hover;}}
-		
+
 &.touch .obra-ficha {
 	color: @ficha_text_hover;
 	a {
@@ -227,27 +243,67 @@ time {
 			text-decoration: none;
 			top: 1px;
 			left: 1px;}}}
-		
+
 &.csstransitions .obra-ficha {
 	.transition(all, .3s);
 	a {.transition(all, .2s);}}
 
 &.borderradius .obra-ficha {
 	.rounded_corners(.2em);}
-	
+
 &.boxshadow &.touch .obra-ficha {
-	.box_shadow(0,0,100px,rgba(0,0,0,0.15));}
-	
+	.box_shadow(0,0,50px,rgba(0,0,0,0.15));}
+
 &.boxshadow &.no-touch .obra-ficha:hover {
 	.box_shadow(0,0,15px,rgba(0,0,0,0.1));}
-	
-&.no-touch .ficha-container {
-	&:hover > time {
+
+&.no-touch {
+	.ficha-container {
+		time {
+			margin-top: 2em;
+			color: #fff;}
+		&:hover > time {
+			color: #bbb;}}
+	.post time {
 		color: #bbb;}}
-		
-&.touch .ficha-container {
-	time {
-		color: #bbb;}}
+
+&.touch {
+	.post {
+		time {
+			color: #bbb;}}
+	.ficha-container {
+		time {
+			color: #bbb;}}}
+
+article {
+	h1 {
+		line-height: 1.1;}
+	clear: both;
+	ul, dl, ol {
+		margin-left: 2em;
+		overflow: hidden;
+		list-style-position: inside;}
+	&.post {
+		img {
+			padding: 1%;
+			border: solid 1px #fff;
+
+			&.alignright {
+				margin: 0 0 2% 2%;}
+			&.alignleft {
+				margin: 0 2% 2% 0;}}}}
+
+.timewrap {text-align: right;}
+
+.pagination {
+		text-align: center;
+		.current {
+			font-weight: bold;}}
+
+footer {
+	overflow: hidden;
+	clear: both;
+	p {margin: 5em 2em 0;}}
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -255,25 +311,41 @@ time {
 @ficha_text: rgba(0,0,0,0.2);
 @ficha_text_hover: rgba(0,0,0,0.5);
 @ficha_text_hover_a: rgba(0,0,0,1);
-@ficha_border: 1px;
+@ficha_border: 1;
 
-/* Smaller than 1024, Mobile phone for sure */
-@media screen and (max-width: 800px) not (max-device-width: 768px) {
-	
+/* Mobile & iPhone4 p */
+@media screen and (max-width: 720px) {
+
+	body {
+		font-size: (@font_size + 1) / @em;}
+	.sizes(1.1);
+
+	#nav-main {
+		ul {
+			overflow: hidden;
+			margin: 0 auto 5em;
+			padding: 0;}
+		li {
+			margin: 1.2em 0;
+			text-align: center;
+			display: block;
+			font-size: 1.6em;}}
+
 	// FLUID
 	#wrap {
 		margin: 0 auto;
 		padding: 0 2em;}
-		
-	time.finished, time.updated {
+
+	time {
 		float: none;}
-			
+
+	.entry-header {
+		margin-top: 3em;}
+
 	.obra-ficha {
 		float: none;
-		@ficha_padding: @800_width8;
-		padding: @ficha_padding;
-		margin-top: 1em;}
-					
+		margin: 1em 1em;}
+
 	.obra-picture {
 		width: 100%;
 		overflow: none;
@@ -284,22 +356,58 @@ time {
 			img {
 				float: none;
 				margin: 0 auto;}}}
-				
+
 	.ficha-container {
 		overflow: hidden;
 		margin: 0 auto;
-		width: @800_width3 + @800_width5 ;}
-		
+		width: 100% ;
+		time {margin-left: 1em;}}
+
 	article.obra {
-		margin-bottom: 5em;}
+		margin-bottom: 5em;
+		display: block !important;} // When resizing, reset to block
+
+	article.post img {
+		margin: 1em auto !important;
+		display: block;
+		float: none;}
+		
+	footer {
+		margin: 2em 0;}
+		
+	.pagination {
+		font-size: 2em;
+		margin-top: 2em;
+		a {
+			margin: 0 .4em;}
+		.current {
+			font-weight: bold;}}
 }
 
-@media screen and (min-width: 800px) {
+// Global styles above 721
+@media screen and (min-width: 721px) {
+
+	body {
+		font-size: @font_size / @em;}
+	.sizes(1);
+
+
 
 	#wrap {
 		margin: 0 auto;}
-		
+
 	.no-flexbox {
+		#nav-main {
+			ul {
+				overflow: hidden;
+				width: 20.1em;
+				margin: 0 auto;}
+			li {
+				width: 10em;
+				text-align: center;
+				display: block;
+				float: left;
+				right: 50%; }}
 		.obra-ficha {
 			float: right;
 		time.finished, time.updated {
@@ -311,11 +419,16 @@ time {
 					float: left;}
 		.ficha-container, .article, .obra-ficha, .obra-picture, .obra-picture a {
 			overflow: hidden;}}}}}
-	
+
 	.flexbox {
+		#nav-main {
+			ul {
+				.box(horizontal,center,center);}
+			li {
+				margin: 0 1.5em;}}
 		article.obra {
 			.box(horizontal, center, end);
-			margin-bottom: 10em;				
+			margin-bottom: 10em;
 		.obra-ficha {
 			padding: 0em;
 			margin: 1em 0 0 2em;
@@ -323,196 +436,264 @@ time {
 		.ficha-container {
 			.box(vertical, start, end);}}}
 
+	.post {margin: 0 0 5em;}
+	
+	.mainwrapper {margin: 0 2em;}
+	
+	footer {
+		margin: 2em 0 2em 0;}
+		
+	.pagination {
+		font-size: 1.2em;
+		margin-top: 1em;
+		a {
+			margin: 0 1em;}}
+
 }
 
 
-/* 1024, Windows 96%, IE 50% */
-@media screen and (min-width: 801px) and (max-width: 1024px) {
-	
-	#wrap {
-		width: 800px;}	
-				
+/* 900, iPad p */
+@media screen and (min-width: 721px) and (max-width: 900px) {
+
+	body {
+		font-size: (@font_size) / @em;}
+	.sizes(1);
+
+	#wrap, footer {
+		width: 720px;}
+
 	.no-flexbox {
 		.obra-ficha {
-			@800_ficha_padding: @800_width8;
-			@800_ficha_width: (@800_width3 + @800_width5) - ((@800_ficha_padding + @ficha_border) * 2);
-			width: @800_ficha_width;
-			padding: @800_ficha_padding;}
+			@720_ficha_padding: @720_width8;
+			@720_ficha_width: (@720_width3 + @720_width5) - ((@720_ficha_padding + @ficha_border) * 2);
+			.width_px(@720_ficha_width);
+			.padding_px(@720_ficha_padding);}
 		.obra-picture {
-			width: @width1;}}
-	
-	
-	.flexbox {	
+			.single_width_px(1,720);}}
+
+
+	.flexbox {
 		.obra-ficha {
-			width: @800_width3;
-			min-height: @800_width4;}}
+			.single_width_px(2,720);
+			.single_min_height_px(4,720);}}
+
+}
+
+
+/* 1024, Windows 96%, IE 50%, iPhone4 l, iPad l */
+@media screen and (min-width: 901px) and (max-width: 1024px) {
+
+	body {
+		font-size: (@font_size) / @em;}
+	.sizes(1);
 	
-	.obra-ficha p {
-		font-size: 1.1em;}
-		
+	#wrap, footer {
+		width: 900px;}
+	
+	.no-flexbox {
+		.obra-ficha {
+			@900_ficha_padding: @900_width8;
+			@900_ficha_width: (@900_width3 + @900_width5) - ((@900_ficha_padding + @ficha_border) * 2);
+			.width_px(@900_ficha_width);
+			.padding_px(@900_ficha_padding);}
+		.obra-picture {
+			.single_width_px(1,900);}}
+	
+	
+	.flexbox {
+		.obra-ficha {
+			.single_width_px(2,900);
+			.single_min_height_px(4,900);}}
+
 }
 
 
 /* 1280, Safari 60%, IE 20% */
 @media screen and (min-width: 1025px) and (max-width: 1280px) {
-	
-	#wrap {
-		width: 1024px;}	
-				
+
+	body {
+		font-size: (@font_size) / @em;}
+	.sizes(1);
+
+	#wrap, footer {
+		width: 1024px;}
+
 	.no-flexbox {
 		.obra-ficha {
 			@1024_ficha_padding: @1024_width8;
 			@1024_ficha_width: (@1024_width3 + @1024_width5) - ((@1024_ficha_padding + @ficha_border) * 2);
-			width: @1024_ficha_width;
-			padding: @1024_ficha_padding;}
+			.width_px(@1024_ficha_width);
+			.padding_px(@1024_ficha_padding);}
 		.obra-picture {
-			width: @width1;}}
-	
-	
-	.flexbox {	
+			.single_width_px(1,1024);}}
+
+
+	.flexbox {
 		.obra-ficha {
-			width: @1024_width3;
-			min-height: @1024_width4;}}
-			
-	.obra-ficha p {
-		font-size: 1.2em;}
-	
+			.single_width_px(3,1024);
+			.single_min_height_px(4,1024);}}
+
 }
 
 
 /* 1440, Windows 70%, IE 40% */
 @media screen and (min-width: 1281px) and (max-width: 1440px) {
-	
-	#wrap {
-		width: 1280px;}	
-				
+
+	body {
+		font-size: (@font_size) / @em;}
+	.sizes(1);
+
+	#wrap, footer {
+		width: 1280px;}
+
 	.no-flexbox {
 		.obra-ficha {
 			@1280_ficha_padding: @1280_width8;
 			@1280_ficha_width: (@1280_width3 + @1280_width5) - ((@1280_ficha_padding + @ficha_border) * 2);
-			width: @1280_ficha_width;
-			padding: @1280_ficha_padding;}
+			.width_px(@1280_ficha_width);
+			.padding_px(@1280_ficha_padding);}
 		.obra-picture {
-			width: @width1;}}
-	
-	
-	.flexbox {	
+			.single_width_px(1,1280);}}
+
+
+	.flexbox {
 		.obra-ficha {
-			width: @1280_width3;
-			min-height: @1280_width4;}}
-			
-	.obra-ficha p {
-		font-size: 1.3em;}
-					
+			.single_width_px(3,1280);
+			.single_min_height_px(4,1280);}}
+
 }
 
 
 /* 1680, Mac 70%, IE 8% */
 @media screen and (min-width: 1441px) and (max-width: 1680px) {
-	
-	#wrap {
-		width: 1440px;}	
-				
+
+	body {
+		font-size: (@font_size) / @em;}
+	.sizes(1);
+
+	#wrap, footer {
+		width: 1440px;}
+
 	.no-flexbox {
 		.obra-ficha {
 			@1440_ficha_padding: @1440_width8;
 			@1440_ficha_width: (@1440_width3 + @1440_width5) - ((@1440_ficha_padding + @ficha_border) * 2);
-			width: @1440_ficha_width;
-			padding: @1440_ficha_padding;}
+			.width_px(@1440_ficha_width);
+			.padding_px(@1440_ficha_padding);}
 		.obra-picture {
-			width: @width1;}}
-	
-	
-	.flexbox {	
+			.single_width_px(1,1440);}}
+
+
+	.flexbox {
 		.obra-ficha {
-			width: @1440_width3;
-			min-height: @1440_width4;}}
-			
-	.obra-ficha p {
-		font-size: 1.4em;}
+			.single_width_px(3,1440);
+			.single_min_height_px(4,1440);}}
 
 }
 
 /* 1920, Mac 90%, no IE */
-@media only screen and (min-width: 1681px) {	
+@media only screen and (min-width: 1681px) {
 
-	#wrap {
-		width: 1680px;}	
-				
+	body {
+		font-size: (@font_size) / @em;}
+	.sizes(1);
+
+	#wrap, footer {
+		width: 1680px;}
+
 	.no-flexbox {
 		.obra-ficha {
 			@1680_ficha_padding: @1680_width8;
 			@1680_ficha_width: (@1680_width3 + @1680_width5) - ((@1680_ficha_padding + @ficha_border) * 2);
-			width: @1680_ficha_width;
-			padding: @1680_ficha_padding;}
+			.width_px(@1680_ficha_width);
+			.padding_px(@1680_ficha_padding);}
 		.obra-picture {
-			width: @width1;}}
-	
-	
-	.flexbox {	
+			.single_width_px(1,1680);}}
+
+
+	.flexbox {
 		.obra-ficha {
-			width: @1680_width3;
-			min-height: @1680_width4;}}
+			.single_width_px(3,1680);
+			.single_min_height_px(4,1680);}}
 
 }
 
 
-@media only screen and (device-width: 768px) and (orientation: portrait) {
-	
+@media all and (orientation: portrait), @media all and (orientation: landscape) {
+
 	#wrap {margin: 0 auto;}
-	
+
 	article.obra {
 		.box(horizontal, center, end);
-		margin-bottom: 10em;				
+		margin-bottom: 10em;
 	.obra-ficha {
 		padding: 0em;
 		margin: 1em 0 0 2em;
 		.box(vertical, center, start);}
 	.ficha-container {
 		.box(vertical, start, end);}}
+
+	.touch .obra-ficha {
+		width: ~`((Math.floor((@{ipad_p_width3} + @{ipad_p_width5}))*100)/100) + 'px'` !important;
+		min-height: ~`((Math.floor((@{ipad_p_width4} + @{ipad_p_width6}))*100)/100) + 'px'` !important;}
 	
-	.obra-ficha {
-		width: @ipad_p_width3 + @ipad_p_width5;
-		min-height: @ipad_p_width4 + @ipad_p_width6;}
+	.mainwrapper {margin: 0 !important;}
 	
-	.obra-ficha p {
-		font-size: 1.1em;}
+	footer {
+		margin: 2em !important;}
 
 }
 
 
-@media only screen and (device-width: 768px) and (orientation: landscape) {
-	
+@media all and (orientation: landscape) {
+
 	#wrap {margin: 0 auto;}
+
+	.ipad {
+		article.obra {
+			.box(horizontal, center, end);
+			margin-bottom: 10em;
+			.obra-ficha {
+				padding: 0em;
+				margin: 1em 0 0 2em;
+				.box(vertical, center, start);}
+			.ficha-container {
+				.box(vertical, start, end);}}}
+			
+	.iphone, .ipod, .android {
+		article.obra {
+			.box(vertical, center, center);
+			margin-bottom: 5em;
+			.obra-ficha {
+				padding: 1em;
+				margin: 1em 0;
+				.box(vertical, center, start);}
+			.ficha-container {
+				.box(vertical, center, center);}}}
+
+	.touch .obra-ficha {
+		width: ~`((Math.floor(@{ipad_l_width3})*100)/100) + 'px'` !important;
+		min-height: ~`((Math.floor(@{ipad_l_width4})*100)/100) + 'px'` !important;}
 	
-	article.obra {
-		.box(horizontal, center, end);
-		margin-bottom: 10em;				
-	.obra-ficha {
-		padding: 0em;
-		margin: 1em 0 0 2em;
-		.box(vertical, center, start);}
-	.ficha-container {
-		.box(vertical, start, end);}}
+	.mainwrapper {margin: 0 !important;}
 	
-	.obra-ficha {
-		width: @ipad_l_width3 !important ;
-		min-height: @ipad_l_width4 !important;}
-	
-	.obra-ficha p {
-		font-size: 1.2em;}
+	footer {
+		margin: 2em !important;}
 
 }
 
-
+// iPhone
 @media screen and (max-device-width: 480px) {
-  html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; }
+	body {
+		font-size: @font_size / @em;}
+	.sizes();
 }
-
 
 // iPhone 4
-@media only screen and (-webkit-min-device-pixel-ratio: 2) { 
-
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+	body {
+		font-size: @font_size / @em;}
+	.sizes();
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////

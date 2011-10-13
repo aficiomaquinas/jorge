@@ -67,7 +67,7 @@
 	-webkit-box-shadow: inset @hor @vert @blur rgba(@r,@g,@b,@a);
 	-moz-box-shadow: inset @hor @vert @blur rgba(@r,@g,@b,@a);
 	box-shadow: inset @hor @vert @blur rgba(@r,@g,@b,@a);}
-	
+
 .shadow_inset (@hor: 0, @vert: 0, @blur: 8px, @rgba: rgba(0,0,0,.5), @inset: inset ) {
 	-webkit-box-shadow: @arguments;
 	-moz-box-shadow: @arguments;
@@ -105,8 +105,8 @@
 	background-color: rgba(@r,@g,@b,@a);
 	filter: e('progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=')@hex e(', endColorstr=')@hex e(')');
 	zoom: 1;}
-	
-.rotate (@deg: 0){ 
+
+.rotate (@deg: 0){
 	@degree: @deg;
 	@rotation: `parseInt(this.degree.toJS())`;
 	@degToRadian: `Math.PI * 2 / 360`;
@@ -144,11 +144,11 @@
 	-moz-box-flex: @flex;
 	box-flex: @flex;
 }
-	
+
 .letterpress_darken (@color) {
 	color: @color;
 	text-shadow: darken(spin(@color, 150), 90%) 1px 1px 0;}
-	
+
 .letterpress_ligthen (@color) {
 	color: @color;
 	text-shadow: lighten(spin(@color, 150), 90%) 1px 1px 0;}
@@ -186,7 +186,7 @@
 	.magenta {background-color: #a9014b; &:hover{background-color: #630030;}}
 	.orange  {background-color: #ff5c00; &:hover{background-color: #d45500;}}
 	.yellow  {background-color: #ffb515; &:hover{background-color: #fc9200;}}}
-	
+
 .awesome_zurb_glow_button () {
 	.base {
 		background-image: none;
@@ -208,14 +208,14 @@
 		border: 0;
 		-webkit-animation-duration: 2s;
         -webkit-animation-iteration-count: infinite;}
-        
+
 	.small    {font-size: 11px;}
 	.medium   {font-size: 13px;}
 	.large    {font-size: 14px; padding: 8px 14px 9px;}
 	.xlarge   {font-size: 18px; padding: 12px 18px 13px;}
 	.xxlarge  {font-size: 25px; padding: 18px 24px 19px;}
 	.xxxlarge {font-size: 35px; padding: 28px 34px 29px;}
-	
+
 	.green {
 		-webkit-animation-name: greenPulse; -webkit-animation-duration: 3s;
 		&:hover{color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.50);}}
@@ -234,7 +234,7 @@
 	.yellow {
 		-webkit-animation-name: yellowPulse; -webkit-animation-duration: 3s;
 		&:hover{color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.50);}}}
-	
+
 .top_shadow () {
 	// Place in body
 	// http://css-tricks.com/snippets/css/top-shadow/
@@ -247,7 +247,7 @@
 		height: 10px;
 		z-index: 100;
 		.box_shadow_rgba(0px, 0px, 50px, 0,0,0,.3);}}
-		
+
 /* Nicholas Gallagher's Micro Clearfix */
 /* For modern browsers */
-.cf:before,.cf:after{content:"";display:table;}.cf:after{clear:both;}.cf{zoom:1;}
+.cf () {&:before,&:after{content:"";display:table;}&:after{clear:both;}zoom:1;}

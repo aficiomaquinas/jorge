@@ -19,7 +19,6 @@
 	<link rel="stylesheet/less" type="text/css" href="<?php echo HOME; ?>/css/main.less">
 
 	<?php wp_head(); ?>
-	<?php roots_head(); ?>
 	
 	<script>
 	/* <![CDATA[ */
@@ -30,6 +29,8 @@
 	/* ]]> */
 	</script>
 	
+	<?php /* <link href="<?php echo HOME; ?>/css/main.css" rel=stylesheet type="text/css" /> */ ?>
+	<script async onload="try{Typekit.load()}catch(e){}" src="http://use.typekit.com/fzu1dhj.js"></script>
 	<script src="<?php echo HOME; ?>/js/libs/modernizr-2.0.6.js"></script>
 	<script src="<?php echo HOME; ?>/js/scripts.js"></script>
 </head>
@@ -45,7 +46,13 @@
 			
 				<div class="logo_wrapper">
 					<a id="logo" href="<?php echo home_url(); ?>/">
-						<img src="<?php echo HOME; ?>/img/logo.png" width="300" height="75" alt="<?php bloginfo('name'); ?>">
+						<img src="<?php echo HOME; ?>/img/logo.png" 
+							<?php if(strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') || strstr($_SERVER['HTTP_USER_AGENT'],'iPod')) { ?>
+								width="150" height="143" 
+							<?php } else { ?>
+								width="300" height="286" 
+							<?php } ?>
+						alt="<?php bloginfo('name'); ?>">
 					</a>
 				</div>
 				

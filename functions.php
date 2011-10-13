@@ -4,7 +4,6 @@
 //////////////////////////////////////////////////////////////////////////////
 define('HOME', get_stylesheet_directory_uri());
 
-// ChromePhp::log('hello world');
 
 function register_cpt_obra() {
 
@@ -226,7 +225,7 @@ function register_cpt_cite() {
         'has_archive' => true,
         'query_var' => true,
         'can_export' => true,
-        'rewrite' => true,
+        'rewrite' => false,
         'capability_type' => 'post'
     );
 
@@ -331,13 +330,20 @@ global $post;
 ?>
 	<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 		<header class="entry-header">
-			<time class="updated" datetime="<?php the_time('c'); ?>" pubdate><?php the_time( __('M/d/y', 'roots')) ?></time>
+			<p class="timewrap"><time class="updated" datetime="<?php the_time('c'); ?>" pubdate><?php the_time( __('M/d/y', 'roots')) ?></time></p>
 			<h1 class="entry-title"><a href="<?php the_permalink(); ?>" title="<?php echo get_the_title($post->ID); ?>" rel="bookmark"><?php echo get_the_title($post->ID); ?></a></h1>
 			<p class="byline author vcard"><?php _e('Written by', 'roots'); ?> <?php the_author_posts_link(); ?></p>
 		</header>
 		<div class="entry-content">
 			<?php the_content(); ?>
 		</div>
+	</article>
+<?php }
+
+
+function cite_loop() { ?>
+	<article id="post-<?php the_ID(); ?>" <?php post_class('cite'); ?>>
+		
 	</article>
 <?php }
 
@@ -418,20 +424,18 @@ global $post;
 <?php }
 
 
-function cite_loop() { ?>
-	<article id="post-<?php the_ID(); ?>" <?php post_class('cite'); ?>>
-		
-	</article>
-<?php }
-
-
 function all_types_index_loop() {
 	// New Query
+	$temp = $wp_query;  // assign orginal query to temp variable for later use
+	global $wp_query;
+	global $post;
+	$page = (get_query_var('page')) ? get_query_var('page') : 1;
     $args = array(
 		'post_type' => array('obra','post','cite'),
-		'posts_per_page' => '-1',
+		'showposts' => '10',
 		'orderby' => 'date',
 		'order' => 'DES',
+		'paged' => $page
 	); $wp_query = new WP_Query( $args );
     
     if ($wp_query->have_posts()) {
@@ -452,21 +456,48 @@ function all_types_index_loop() {
     		}
     		
 		endwhile;
+		
     } else {
 		not_found();
 	}
+	
+	?><nav class="pagination">
+	<?php
+		$big = 999999999; // need an unlikely integer
+		echo paginate_links( array(
+			'base' => str_replace( $big, '%#%', get_pagenum_link( $big ) ),
+			'format' => '?paged=%#%',
+			'current' => max( 1, get_query_var('paged') ),
+			'total' => $wp_query->max_num_pages
+		) );
+	?></nav>
+	<?php
+	
 	//////////////   LOOP ENDS   ///////////////
-	wp_reset_query();
+	$wp_query = null;
+	$wp_query = $temp;
 }
 
 if ( function_exists( 'add_image_size' ) ) { 
-	add_image_size( 'mobile',      320,  480 );
+
+	//add_image_size( $name, $width, $height, $crop );
+	add_image_size( 'iphone4_p',    500,  800 );
+	add_image_size( 'iphone4_l',    800,  500 );
 	
-	add_image_size( 'small_800',   494,  494 );
-	add_image_size( 'medium_1024', 632,  632 );
-	add_image_size( 'medium_1280', 791,  791 );
-	add_image_size( 'large_1440',  889,  889 );
-	add_image_size( 'large_1680',  1038, 1038 );
+	add_image_size( 'iphone_p',     250,  400 );
+	add_image_size( 'iphone_l',     400,  250 );
+	
+	add_image_size( 'ipad_p',       350,  900 );
+	add_image_size( 'ipad_l',       600,  600 );
+	
+	add_image_size( 'mobile',       300,  400 );
+	add_image_size( 'small_640',    500,  800 );
+	add_image_size( 'small_720',    320,  700 );
+	add_image_size( 'small_900',    470,  470 );
+	add_image_size( 'medium_1024',  630,  630 );
+	add_image_size( 'medium_1280',  790,  790 );
+	add_image_size( 'large_1440',   890,  890 );
+	add_image_size( 'large_1680',  1040, 1040 );
 }
 
 function image_echo($size, $i_ID) {
@@ -497,26 +528,13 @@ function resize_ajax_image() {
 } add_action( 'wp_ajax_nopriv_resize_ajax_image', 'resize_ajax_image' );
 add_action( 'wp_ajax_resize_ajax_image', 'resize_ajax_image' );
 
+function main_before() { ?>
+	<div class="mainwrapper">
+<?php } add_action('roots_main_before','main_before');
 
-function gr_widths($num) {
-	$out  = '@100percent: '.$num.'%\r';
-	$out .= '@width1:  @100percent * @grs; // ' .strval(round($num * (pow(0.618,1)), 2)) .' @ '.$num."%\r";
-	$out .= '@width2:  @width1     * @grs; // ' .strval(round($num * (pow(0.618,2)), 2)) .' @ '.$num."%\r";
-	$out .= '@width3:  @width2     * @grs; // ' .strval(round($num * (pow(0.618,3)), 2)) .' @ '.$num."%\r";
-	$out .= '@width4:  @width3     * @grs; // ' .strval(round($num * (pow(0.618,4)), 2)) .' @ '.$num."%\r";
-	$out .= '@width5:  @width4     * @grs; // ' .strval(round($num * (pow(0.618,5)), 2)) .' @ '.$num."%\r";
-	$out .= '@width6:  @width5     * @grs; // ' .strval(round($num * (pow(0.618,6)), 2)) .' @ '.$num."%\r";
-	$out .= '@width7:  @width6     * @grs; // ' .strval(round($num * (pow(0.618,7)), 2)) .' @ '.$num."%\r";
-	$out .= '@width8:  @width7     * @grs; // ' .strval(round($num * (pow(0.618,8)), 2)) .' @ '.$num."%\r";
-	$out .= '@width9:  @width8     * @grs; // ' .strval(round($num * (pow(0.618,9)), 2)) .' @ '.$num."%\r";
-	$out .= '@width10: @width9     * @grs; // ' .strval(round($num * (pow(0.618,10)), 2)).' @ '.$num."%\r";
-	$out .= '@width11: @width10    * @grs; // ' .strval(round($num * (pow(0.618,11)), 2)).' @ '.$num."%\r";
-	$out .= '@width12: @width11    * @grs; // ' .strval(round($num * (pow(0.618,12)), 2)).' @ '.$num."%\r";
-	$out .= '@width13: @width12    * @grs; // ' .strval(round($num * (pow(0.618,13)), 2)).' @ '.$num."%\r";
-	$out .= '@width14: @width13    * @grs; // ' .strval(round($num * (pow(0.618,14)), 2)).' @ '.$num."%\r";
-	$out .= '@width15: @width14    * @grs; // ' .strval(round($num * (pow(0.618,15)), 2)).' @ '.$num."%\r";
-	echo $out;
-}
+function main_after() { ?>
+	</div><!-- .mainwrapper -->
+<?php } add_action('roots_main_after','main_after');
 
 
 
